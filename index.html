@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang = "zh-CN">
+    <head>
+        <meta charset="UTF-8">
+
+        <meta name = "viewport" content = "width = device-width,initial-scale = 1.0">
+
+        <title>LinkGame</title>
+
+        <link rel="stylesheet" href="style.css?v=2">
+        <link rel = "icon" href="image/rose.png" type = "image/png">  
+        <script src = "app.js" defer></script>
+    </head>
+    <body>
+
+        <div id = "mainMenu">
+            <h1><p>Happy</p></h1>
+            <h1><p>Link Game</p></h1>
+            <button id = "基本模式" class = "left-btn" type = "button">基本模式</button>
+            <button id = "休闲模式" class = "left-btn" type = "button">休闲模式</button>
+            <button id = "关卡模式" class = "left-btn" type = "button">关卡模式</button>
+            <button id = "帮助" class = "bottom-btn" type = "button">帮助</button>
+            <button id = "设置" class = "bottom-btn" type = "button">设置</button>
+            <button id = "排行榜" class = "bottom-btn" type = "button">排行榜</button>
+        </div>
+
+        <div id = "gameScreen">
+            <button id = "return-btn" class = "left-btn" type = "button">结束游戏</button>
+            <button id = "start-btn" class = "left-btn" type = "button">开始游戏</button>
+            <button id = "pause-btn" class = "left-btn" type = "button">暂停游戏</button>
+            <button id = "help-btn"class = "bottom-btn" type = "button">帮助</button>
+            <button id = "setting-btn" class = "bottom-btn" type = "button">设置</button>
+            <div id = "gameBoard"></div>
+            <div id="flipClockContainer">
+                <div class="flip-clock">
+                  <div class="digit" id="minuteTens"></div>
+                  <div class="digit" id="minuteOnes"></div>
+                  <span class="colon">:</span>
+                  <div class="digit" id="secondTens"></div>
+                  <div class="digit" id="secondOnes"></div>
+                </div>
+              </div>
+        </div>
+
+        
+
+        <div id = "helpModel" class = "model">
+            <div class = "model-content">
+                <span class = "close-btn" id = "closeHelp">&times;</span>
+                <h2>游戏帮助</h2>
+                <p>规则：</p>
+                <p>胜利条件：消除所有图案。</p>
+                <p>失败条件：时间耗尽或无解</p>
+            </div>
+        </div>
+
+        <div id = "settingModel" class = "model">
+            <div class = "model-content">
+                <span class = "close-btn" id = "closeSetting">&times;</span>
+                <h2>游戏设置</h2>
+                <label><input type = "checkbox">开启背景音乐</label><br>
+                <label><input type = "checkbox">开启音效</label><br>
+                <label>游戏难度
+                    <select>
+                        <option>简单</option>
+                        <option>普通</option>
+                        <option>困难</option>
+                    </select>
+                </label><br>
+            </div>
+        </div>
+
+        
+    </body>
+</html>

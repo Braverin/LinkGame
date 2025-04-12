@@ -1,15 +1,7 @@
-/*
-主界面样式
-*/
-
-h1{
-    font-family: 'Arial',sans-serif;
-    font-weight: bold;
-    font-style:italic;
-    color:#1E3A8A;
-}
-
-html，body{
+/* ---------------------
+   通用基础样式
+----------------------*/
+html, body {
     position: relative;
     margin: 0;
     padding: 0;
@@ -24,34 +16,45 @@ body::before {
     width: 100%;
     height: 100%;
     background: url("image/background.jpg") center/cover no-repeat;
-    opacity: 0.5;  /* 透明度 */
-    z-index: -1;  /* 确保背景在最底层 */
+    opacity: 0.5;
+    z-index: -1;
 }
 
-.left-btn{
+h1 {
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    font-style: italic;
+    color: #1E3A8A;
+}
+
+/* ---------------------
+   主界面按钮样式
+----------------------*/
+
+.left-btn {
     position: absolute;
-    left:10px;
+    left: 10px;
     transform: translateY(-50%);
     padding: 10px 20px;
     font-size: medium;
     background-color: transparent;
     color: #1E3A8A;
-    border:none;
+    border: none;
     cursor: pointer;
     text-shadow: 2px 2px 5px rgb(69, 186, 167);
 }
 
 .left-btn:hover {
-    background-color: rgba(30, 58, 138, 0.3);  /* 背景变浅蓝 */
-    color: white;  /* 文字变白 */
-    border-color: white;  /* 边框变白 */
+    background-color: rgba(30, 58, 138, 0.3);
+    color: white;
+    border-color: white;
 }
 
-#基本模式{top:30%}
-#休闲模式{top:40%}
-#关卡模式{top:50%}
+#basicMode { top: 30%; }
+#leisureMode { top: 40%; }
+#levelMode { top: 50%; }
 
-.bottom-btn{
+.bottom-btn {
     position: absolute;
     bottom: 10px;
     transform: translateY(-50%);
@@ -59,23 +62,52 @@ body::before {
     font-size: medium;
     background-color: transparent;
     color: #1E3A8A;
-    border:none;
+    border: none;
     cursor: pointer;
     text-shadow: 2px 2px 5px rgb(69, 186, 167);
+    z-index: 1;
 }
 
 .bottom-btn:hover {
-    background-color: rgba(30, 58, 138, 0.3);  /* 背景变浅蓝 */
-    color: white;  /* 文字变白 */
-    border-color: white;  /* 边框变白 */
+    background-color: rgba(30, 58, 138, 0.3);
+    color: white;
+    border-color: white;
 }
 
-#帮助{right:0%}
-#设置{right:10%}
-#排行榜{right:20%}
+.hint-btn {
+    left: 45%;
+    position: absolute;
+    bottom: 10px;
+    transform: translateY(-50%);
+    padding: 10px 20px;
+    font-size: medium;
+    background-color: transparent;
+    color: #1E3A8A;
+    border: none;
+    cursor: pointer;
+    text-shadow: 2px 2px 5px rgb(69, 186, 167);
+    z-index: 1;
+}
 
-#gameScreen{
-    background: transparent; /* 透明背景 */
+.hint-btn:hover {
+    background-color: rgba(30, 58, 138, 0.3);
+    color: white;
+    border-color: white;
+}
+  
+
+#help-btn { right: 0%; }
+#setting-btn { right: 10%; }
+#rank-btn { right: 20%; }
+
+/* ---------------------
+   游戏界面及弹窗
+----------------------*/
+
+
+
+#gameScreen {
+    background: transparent;
     width: 100%;
     height: 100vh;
     position: absolute;
@@ -84,16 +116,15 @@ body::before {
     display: none;
 }
 
-.model{
-    display: none; /* 默认隐藏 */
+.model {
+    display: none;
     position: fixed;
     z-index: 1000;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     width: 300px;
-    background: white;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    background: transparent;
     padding: 20px;
     border-radius: 10px;
     text-align: center;
@@ -101,6 +132,12 @@ body::before {
 
 .model-content {
     position: relative;
+}
+
+.model:hover {
+    background-color: rgba(30, 58, 138, 0.3);
+    color: white;
+    border-color: white;
 }
 
 .close-btn {
@@ -111,52 +148,98 @@ body::before {
     cursor: pointer;
 }
 
-/*
-游戏区域样式
-*/
+/* ---------------------
+   游戏区域样式
+----------------------*/
+#return-btn { top: 85%; }
+#start-btn { top: 65%; }
+#pause-btn { top: 75%; }
+#continue-btn { top: 30%; }
 
-#return-btn{top:30%}
-#start-btn{top:10%}
-#pause-btn{top:20%}
-#continue-btn{top:30%}
-#help-btn{right:0%}
-#setting-btn{right:10%}
-#gameBoard{
-    display: grid;
-    grid-template-columns: repeat(16,48px);
-    grid-template-rows: repeat(10,48px);
-    gap:5px;
-    width: calc(16 * 48px + 15 * 5px);
-    height: calc(10 * 48px + 9 * 5px); /* 控制游戏区域的高度 */
-    margin: 20px auto; /* 居中显示 */
+/* 计分板样式 */
+#score-container {
+    position: fixed; /* 固定位置 */
+    bottom: 100px;
+    left: 45%;
+    font-size: 24px;
+    color: #1E3A8A;
+    background-color: transparent; 
+    padding: 10px;
+    border-radius: 5px;
 }
 
-.game-cell{
+#score {
+    font-weight: bold;
+}
+
+
+
+#gameBoard {
+    display: grid;
+    gap: 5px;
+    justify-content: center;
+    margin: 20px auto;
+    /* 默认使用 normal 模式尺寸，可通过 JS 动态设置列数 */
+    grid-template-columns: repeat(16, 48px);
+    grid-template-rows: repeat(10, 48px);
+    width: calc(16 * 48px + 15 * 5px);
+    height: calc(10 * 48px + 9 * 5px);
+}
+
+.game-cell {
     width: 48px;
     height: 48px;
-    background-color: lightgrey;  /* 设置默认背景 */
-    background-size: cover; /* 图片覆盖 */
-    border-radius: 5px; /* 圆角效果 */
+    background-color: lightgrey;
+    background-size: cover;
+    border-radius: 5px;
     cursor: pointer;
     position: relative;
 }
 
+.selected{
+    border:2px solid red;
+    box-shadow: 0 0 10px red;
+}
+
+.game-cell.matched {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* 提示的高亮效果 */
+.game-cell.hint {
+    border: 2px solid orange;
+    box-shadow: 0 0 8px gold;
+}
+
+
+
+.cell.matched {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    transition: box-shadow 0.3s ease, border 0.3s ease;
+}
+
+
+/* ---------------------
+   翻页时钟样式
+----------------------*/
 #flipClockContainer {
     display: flex;
     justify-content: center;
     margin-top: 20px;
-  }
-  
-  .flip-clock {
+}
+
+.flip-clock {
     display: flex;
     font-family: 'Courier New', Courier, monospace;
     font-size: 60px;
     font-weight: bold;
     color: #1E3A8A;
     gap: 10px;
-  }
-  
-  .digit {
+}
+
+.digit {
     position: relative;
     width: 50px;
     height: 80px;
@@ -166,21 +249,20 @@ body::before {
     line-height: 80px;
     perspective: 1000px;
     overflow: hidden;
-  }
-  
-  .digit::before {
+}
+
+.digit::before {
     content: attr(data-number);
     display: block;
     transition: transform 0.6s;
     transform-origin: top;
     transform: rotateX(0deg);
-  }
-  
-  .digit.flip::before {
+}
+
+.digit.flip::before {
     transform: rotateX(-180deg);
-  }
-  
-  .colon {
+}
+
+.colon {
     line-height: 80px;
-  }
-  
+}

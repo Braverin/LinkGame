@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const closeSetting = document.getElementById("closeSetting");
 
     const bgm = new Audio();
-    const clickSound = document.getElementById("clickSound");
     const bgmCheckbox = document.getElementById("bgm-checkbox");
     const volumeControl = document.getElementById("volumeControl");
     const musicSelect = document.getElementById("musicSelect");
@@ -240,6 +239,7 @@ document.addEventListener("DOMContentLoaded", function () {
         switch(currentDifficulty){
             case"easy":
             if(score === 180){
+                winsound.play();
                 pauseCountdown();
                 isBegin = false;
                 Swal.fire({
@@ -252,6 +252,7 @@ document.addEventListener("DOMContentLoaded", function () {
             break;
             case"normal":
             if(score === 800){
+                winsound.play();
                 isBegin = false;
                 pauseCountdown();
                 Swal.fire({
@@ -264,6 +265,7 @@ document.addEventListener("DOMContentLoaded", function () {
             break;
             case"difficult":
             if(score === 950){
+                winsound.play();
                 isBegin = false;
                 pauseCountdown();
                 Swal.fire({
@@ -281,8 +283,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // -------------------- 消子算法--------------------
     let selectedCells = [];
     function handleCellClick(e) {
+        clickSound.play();
         const cell = e.currentTarget;
-
         const row = parseInt(cell.dataset.row);
         const col = parseInt(cell.dataset.col);
 
@@ -302,6 +304,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const cell1 = selectedCells[0];
             const cell2 = selectedCells[1];
             if(isSameImage(cell1, cell2)&&canConnect(cell1,cell2)) {
+                matchSound();
                 if(!isBegin){
                     isBegin = true;
                     startFlipClockCountdown(); // ✅ 仅此时才真正开始倒计时
@@ -375,8 +378,9 @@ document.addEventListener("DOMContentLoaded", function () {
         updateClockDisplay(totalTime);
         countdown = setInterval(() => {
             totalTime--;
-            if (totalTime < 0) {
+            if (totalTime <= 0) {
                 clearInterval(countdown);
+                onCoundownEnd();
                 return;
             }
             updateClockDisplay(totalTime);
@@ -409,6 +413,23 @@ document.addEventListener("DOMContentLoaded", function () {
         level++;
         updateLevelTimer();
         startFlipClockCountdown();
+    }
+
+    function onCoundownEnd(){
+        loseSound.play();
+        setTimeout(() => {
+            Swal.fire({
+                icon: 'error',
+                title: '游戏结束',
+                text: '时间到！',
+                confirmButtonText: '再来一次！'
+            }).then (() => {
+                document.getElementById("mainMenu").style.display = "block";
+                document.getElementById("gameScreen").style.display = "none";
+                totalTime = 300;//重置时间              
+            });
+        },300);
+
     }
 
 
@@ -486,6 +507,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // -------------------- 音乐控制 --------------------
+    const clickSound = new Audio("audio/clicksound.wav");
+    const winsound = new Audio("audio/winsound.wav");
+    const loseSound = new Audio("audio/losesound.wav");
+
+    function matchSound(){
+        const matchSound = new Audio("audio/matchsound.mp3");
+        matchSound.play();
+    }
     const defaultTrack = "bgm1.mp3"; // 默认音轨
     bgm.src = `audio/${defaultTrack}`; // 设置默认音轨
     bgm.volume = parseFloat(volumeControl.value);// 设置初始音量（默认值为 0.5）
@@ -610,6 +639,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
             alert("没有可以消除的图案！");
     }
+    
+    if(totalTime === 0)loseSound.play();
     
     // -------------------- 排行榜模块 --------------------
 

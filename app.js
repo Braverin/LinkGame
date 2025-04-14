@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // -------------------- 初始化变量 --------------------
     let board = [];
     let score = 0; // 分数
+    let isBegin = false; // 是否开始游戏
 
     // -------------------- 渲染地图 --------------------
     function renderBoard(rows = 10, cols = 16) {
@@ -240,6 +241,7 @@ document.addEventListener("DOMContentLoaded", function () {
             case"easy":
             if(score === 180){
                 pauseCountdown();
+                isBegin = false;
                 Swal.fire({
                     icon: 'success',
                     title: '恭喜你通关了！',
@@ -250,6 +252,7 @@ document.addEventListener("DOMContentLoaded", function () {
             break;
             case"normal":
             if(score === 800){
+                isBegin = false;
                 pauseCountdown();
                 Swal.fire({
                     icon: 'success',
@@ -261,6 +264,7 @@ document.addEventListener("DOMContentLoaded", function () {
             break;
             case"difficult":
             if(score === 950){
+                isBegin = false;
                 pauseCountdown();
                 Swal.fire({
                     icon: 'success',
@@ -298,7 +302,16 @@ document.addEventListener("DOMContentLoaded", function () {
             const cell1 = selectedCells[0];
             const cell2 = selectedCells[1];
             if(isSameImage(cell1, cell2)&&canConnect(cell1,cell2)) {
-                totalTime += 5; // 每次消除加5秒
+                if(!isBegin){
+                    isBegin = true;
+                    startFlipClockCountdown(); // ✅ 仅此时才真正开始倒计时
+                }
+                if(selectedMode === "levelMode"){
+                    totalTime += 1;
+                }else{
+                    totalTime += 5; // 每次消除加5秒
+                }
+                
                 updateClockDisplay(totalTime);
                 score += 10; // 每次消除加10分
                 document.getElementById("score").textContent = `分数：${score}`;
@@ -448,6 +461,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     startButton.addEventListener("click", () => {
         if (selectedMode === "basicMode" || selectedMode === "levelMode") {
+            isBegin = true;
             isPaused = false;  // 取消暂停状态
             startFlipClockCountdown();  // ✅ 仅此时才真正开始倒计时
         }

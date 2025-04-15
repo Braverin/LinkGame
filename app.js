@@ -466,9 +466,17 @@ document.addEventListener("DOMContentLoaded", function () {
     levelButton.addEventListener("click", () => gameMode("levelMode"));
 
     returnButton.addEventListener("click", function () {
+        isBegin = false;
+
+        clearInterval(countdown);
+        countdown = null;
+        resetCountdown();
+
+        score = 0;
+        document.getElementById("score").textContent = `分数：${score}`;
+        
         document.getElementById("mainMenu").style.display = "block";
         document.getElementById("gameScreen").style.display = "none";
-        totalTime = 300;//重置时间
     });
 
     helpButton.addEventListener("click", () => helpModel.style.display = "block");
